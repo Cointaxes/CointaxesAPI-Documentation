@@ -1,131 +1,235 @@
---- 
+---
 
-title: dev-EverydayAI-API 
+title: Cointaxes API
 
-language_tabs: 
-   - shell 
+language_tabs:
+   - JSON
 
-toc_footers: 
-   - <a href='#'>Sign Up for a Developer Key</a> 
-   - <a href='https://github.com/lavkumarv'>Documentation Powered by lav</a> 
+includes:
+   - errors
 
-includes: 
-   - errors 
+search: true
 
-search: true 
+---
 
---- 
+# Introduction
 
-# Introduction 
+**Version:** Internal Pre-Alpha
 
-**Version:** 2018-04-29T05:38:21Z 
+# Users
 
-# /BRAINS
-## ***GET*** 
+## Get User
 
-### HTTP Request 
-`***GET*** /brains` 
+### HTTP Request
+`GET /users/65`
 
-**Responses**
+`GET /me`
 
-| Code | Description |
-| ---- | ----------- |
+```json
+Unauthenticated result
+{
+  "id":65,
+  "email":"testerstesters@hotmail.com",
+  "referredBy":null,
+  "createDate":null,
+  "updateDate":"2018-03-17T14:20:51.000+0000",
+  "referrals": []
+}
 
-## ***POST*** 
+Authenticated result
+{
+  "id":65,
+  "firstName":"Ken",
+  "lastName":"Stipek",
+  "email":"testerstesters@hotmail.com",
+  "userStatusId": 1,
+  "storageKey":"JnVx7fTQWILEwRNagEWlvsRTJdzIHJQ7D649rVHo1Z57JCNG7h7GbNniXWgocAlN",
+  "timezone":"Pacific Standard Time (Mexico)",
+  "referredBy":null,
+  "createDate":null,
+  "updateDate":"2018-03-17T14:20:51.000+0000",
+  "prelaunchWhitelisted":true,
+  "coinbaseUser":false,
+  "facebookUser":false,
+  "googleUser":false,
+  "referrals": []
+}
+```
 
-### HTTP Request 
-`***POST*** /brains` 
+## Create User
 
-**Responses**
+### HTTP Request
+`POST /users`
 
-| Code | Description |
-| ---- | ----------- |
+```json
+Payload
+{
+  "email":"testerstesters@hotmail.com",
+  "password":"password",
+  "timezone":"Pacific Standard Time (Mexico)",
+  "referredBy":null
+}
 
-## ***OPTIONS*** 
+Response
+{
+  "id":65,
+  "firstName":"Ken",
+  "lastName":"Stipek",
+  "email":"testerstesters@hotmail.com",
+  "userStatusId": 1,
+  "storageKey":"JnVx7fTQWILEwRNagEWlvsRTJdzIHJQ7D649rVHo1Z57JCNG7h7GbNniXWgocAlN",
+  "timezone":"Pacific Standard Time (Mexico)",
+  "referredBy":null,
+  "createDate":null,
+  "updateDate":"2018-03-17T14:20:51.000+0000",
+  "prelaunchWhitelisted":true,
+  "coinbaseUser":false,
+  "facebookUser":false,
+  "googleUser":false,
+  "referrals": []
+}
+```
 
-### HTTP Request 
-`***OPTIONS*** /brains` 
+## Update User
 
-**Responses**
+### HTTP Request
+`PUT /users/65`
 
-| Code | Description |
-| ---- | ----------- |
-| 200 | 200 response |
+```json
+Payload
+{
+  "timezone":"Eastern Standard Time (New York)",
+}
 
-# /BRAINS/{ID}
-## ***GET*** 
+Response
+{
+  "userId":65,
+  "email":"testerstesters@hotmail.com",
+  "userStatusId": 1,
+  "currency":"USD",
+  "storageKey":"JnVx7fTQWILEwRNagEWlvsRTJdzIHJQ7D649rVHo1Z57JCNG7h7GbNniXWgocAlN",
+  "timezone":"Eastern Standard Time (New York)",
+  "referredBy":null,
+  "createDate":null,
+  "updateDate":"2018-03-17T14:20:51.000+0000",
+  "prelaunchWhitelisted":true,
+  "coinbaseUser":false,
+  "facebookUser":false,
+  "googleUser":false,
+  "referrals": []
+}
+```
 
-### HTTP Request 
-`***GET*** /brains/{id}` 
+# Exchanges
 
-**Parameters**
+## Get Exchanges
 
-| Name | Located in | Description | Required | Type |
-| ---- | ---------- | ----------- | -------- | ---- |
-| id | path |  | Yes | string |
+### HTTP Request
+`GET /exchanges`
 
-**Responses**
+```json
+Response
+{
+  "data": [
+    {
+      "id":1,
+      "userId": 65,
+      "name":"coinbase",
+      "createdAt":"2018-03-17T14:20:51.000+0000",
+      "updatedAt":"2018-03-17T14:20:51.000+0000"
+    },
+    {
+      "id":2,
+      "userId": 65,
+      "name":"kraken",
+      "createdAt":"2018-03-17T14:20:51.000+0000",
+      "updatedAt":"2018-03-17T14:20:51.000+0000"
+    },
+  ]
+}
+```
 
-| Code | Description |
-| ---- | ----------- |
+## Get Exchange
 
-## ***PUT*** 
+### HTTP Request
+`GET /exchanges/1`
 
-### HTTP Request 
-`***PUT*** /brains/{id}` 
+```json
+Response
+{
+  "id":1,
+  "userId": 65,
+  "name":"coinbase",
+  "createdAt":"2018-03-17T14:20:51.000+0000",
+  "updatedAt":"2018-03-17T14:20:51.000+0000"
+}
+```
 
-**Parameters**
+## Create Exchange
 
-| Name | Located in | Description | Required | Type |
-| ---- | ---------- | ----------- | -------- | ---- |
-| id | path |  | Yes | string |
+### HTTP Request
+`POST /exchanges`
 
-**Responses**
+```json
+Payload
+{
+  "userId": 65,
+  "name":"bittrex"
+}
 
-| Code | Description |
-| ---- | ----------- |
+Response
+{
+  "id":3,
+  "userId": 65,
+  "name":"bittrex",
+  "createdAt":"2018-03-17T14:20:51.000+0000",
+  "updatedAt":"2018-03-17T14:20:51.000+0000"
+}
+```
 
-## ***OPTIONS*** 
+## Delete Exchange
 
-### HTTP Request 
-`***OPTIONS*** /brains/{id}` 
+### HTTP Request
+`DELETE /exchanges/3`
 
-**Responses**
+# Files
 
-| Code | Description |
-| ---- | ----------- |
-| 200 | 200 response |
+## Get Files
 
-# /TESTS
-## ***GET*** 
+### HTTP Request
+`GET /files`
 
-### HTTP Request 
-`***GET*** /tests` 
+`GET /exchanges/1/files`
 
-**Responses**
+```json
+Response
+{
+  "data": [
+     {
+        "id":1,
+        "exchangeId":1,
+        "url":"myfile.csv",
+        "kind":"WITHDRAWAL",
+        "status":"INITIAL",
+        "createdAt":"2018-03-18T12:49:08.000+0000",
+        "updatedAt":"2018-03-18T12:49:08.000+0000"
+     },
+     {
+        "id":2,
+        "exchangeId":1,
+        "url":"myfile2.csv",
+        "kind":"WITHDRAWAL",
+        "status":"INITIAL",
+        "createdAt":"2018-03-18T12:49:08.000+0000",
+        "updatedAt":"2018-03-18T12:49:08.000+0000"
+     }
+  ]
+}
+````
 
-| Code | Description |
-| ---- | ----------- |
+# Keys
 
-## ***POST*** 
+## Get Key
 
-### HTTP Request 
-`***POST*** /tests` 
-
-**Responses**
-
-| Code | Description |
-| ---- | ----------- |
-
-## ***OPTIONS*** 
-
-### HTTP Request 
-`***OPTIONS*** /tests` 
-
-**Responses**
-
-| Code | Description |
-| ---- | ----------- |
-| 200 | 200 response |
-
-<!-- Converted with the swagger-to-slate https://github.com/lavkumarv/swagger-to-slate -->
+### HTTP Request
+`GET /exchanges/1/keys`
