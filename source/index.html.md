@@ -432,21 +432,15 @@ Payload
 
 # Process
 
-## Get Key
+## Trigger Process Start
 
 ### HTTP Request
-`GET /exchanges/1/keys`
+`GET /process?userId=<UserId>&taxTreatment=FIFO&outputCurrency=USD`
 
 # Holdings
 
-## Get Key
-
-### HTTP Request
-`GET /exchanges/1/keys`
+I don't know what to do about this endpoint. But maybe we don't want to expose it publicly anyway...?
 
 # Forms
 
-## Get Key
-
-### HTTP Request
-`GET /exchanges/1/keys`
+Same with this one...?
