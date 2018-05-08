@@ -220,6 +220,11 @@
       <div id="toc" class="toc-list-h1">
           <li>
             <a href="#introduction" class="toc-h1 toc-link" data-title="introduction">Introduction</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#conversion-information" class="toc-h2 toc-link" data-title="conversion-information">Conversion Information</a>
+                  </li>
+              </ul>
           </li>
           <li>
             <a href="#users" class="toc-h1 toc-link" data-title="users">Users</a>
@@ -258,13 +263,72 @@
                   <li>
                     <a href="#get-files" class="toc-h2 toc-link" data-title="get-files">Get Files</a>
                   </li>
+                  <li>
+                    <a href="#create-file" class="toc-h2 toc-link" data-title="create-file">Create File</a>
+                  </li>
+                  <li>
+                    <a href="#update-file" class="toc-h2 toc-link" data-title="update-file">Update File</a>
+                  </li>
+                  <li>
+                    <a href="#delete-file" class="toc-h2 toc-link" data-title="delete-file">Delete File</a>
+                  </li>
               </ul>
           </li>
           <li>
             <a href="#keys" class="toc-h1 toc-link" data-title="keys">Keys</a>
               <ul class="toc-list-h2">
                   <li>
+                    <a href="#get-keys" class="toc-h2 toc-link" data-title="get-keys">Get Keys</a>
+                  </li>
+                  <li>
+                    <a href="#create-key" class="toc-h2 toc-link" data-title="create-key">Create Key</a>
+                  </li>
+                  <li>
+                    <a href="#update-key" class="toc-h2 toc-link" data-title="update-key">Update Key</a>
+                  </li>
+                  <li>
+                    <a href="#delete-key" class="toc-h2 toc-link" data-title="delete-key">Delete Key</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#transactions" class="toc-h1 toc-link" data-title="transactions">Transactions</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#get-transactions" class="toc-h2 toc-link" data-title="get-transactions">Get Transactions</a>
+                  </li>
+                  <li>
+                    <a href="#create-transaction" class="toc-h2 toc-link" data-title="create-transaction">Create Transaction</a>
+                  </li>
+                  <li>
+                    <a href="#update-transaction" class="toc-h2 toc-link" data-title="update-transaction">Update Transaction</a>
+                  </li>
+                  <li>
+                    <a href="#delete-transaction" class="toc-h2 toc-link" data-title="delete-transaction">Delete Transaction</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#process" class="toc-h1 toc-link" data-title="process">Process</a>
+              <ul class="toc-list-h2">
+                  <li>
                     <a href="#get-key" class="toc-h2 toc-link" data-title="get-key">Get Key</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#holdings" class="toc-h1 toc-link" data-title="holdings">Holdings</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#get-key-2" class="toc-h2 toc-link" data-title="get-key">Get Key</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#forms" class="toc-h1 toc-link" data-title="forms">Forms</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#get-key-3" class="toc-h2 toc-link" data-title="get-key">Get Key</a>
                   </li>
               </ul>
           </li>
@@ -278,6 +342,24 @@
       <div class="content">
         <h1 id='introduction'>Introduction</h1>
 <p><strong>Version:</strong> Internal Pre-Alpha</p>
+<h3 id='conversion-information'>Conversion Information</h3>
+<p>This API document aims to standardize the Cointaxes API for external use. The
+following specification is what the API <strong>should</strong> become. Here is a summary of
+the changes:</p>
+
+<ul>
+<li><p>Standardizes on &quot;createdAt&quot; and &quot;updatedAt&quot; for all objects</p></li>
+<li><p>Adds an &quot;Exchanges&quot; endpoint so third parties can get a user&#39;s exchanges list in a single call</p></li>
+<li><p>All endpoints follow REST standards when it comes to when to use GET, POST, PUT, and DELETE HTTP methods</p></li>
+<li><p>Objects are always identified by the objects &quot;id&quot; attribute and related objects are identified by &quot;<ObjectType>Id&quot;</p></li>
+<li><p>All object attributes are always accessed at the top level, no GETs on a nested route (e.g. /transactions/gifts)</p></li>
+<li><p>The user object returns a subset of values when the user is not authenticated</p></li>
+<li><p>Index collections are returned in an attribute named &quot;data&quot;</p></li>
+<li><p>Keys and Files are top level resources, but always require an exchange</p></li>
+<li><p>Exchanges are a real object, and not simply recorded as &quot;location&quot; or &quot;locationName&quot;</p></li>
+<li><p>Naming conventions for the same objets are consistent (e.g. not using location and exchangeName)</p></li>
+<li><p>Scopes are defined by search parameters (e.g. <code>/transactions?type=TRADE</code>) over nested paths</p></li>
+</ul>
 <h1 id='users'>Users</h1><h2 id='get-user'>Get User</h2><h3 id='http-request'>HTTP Request</h3>
 <p><code>GET /users/65</code></p>
 
@@ -339,7 +421,7 @@
   </span><span class="s2">"referrals"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h2 id='update-user'>Update User</h2><h3 id='http-request-3'>HTTP Request</h3>
-<p><code>PUT /users/65</code></p>
+<p><code>PATCH /users/65</code></p>
 <pre class="highlight json tab-json"><code><span class="err">Payload</span><span class="w">
 </span><span class="p">{</span><span class="w">
   </span><span class="s2">"timezone"</span><span class="p">:</span><span class="s2">"Eastern Standard Time (New York)"</span><span class="p">,</span><span class="w">
@@ -438,7 +520,123 @@
      </span><span class="p">}</span><span class="w">
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre><h1 id='keys'>Keys</h1><h2 id='get-key'>Get Key</h2><h3 id='http-request-9'>HTTP Request</h3>
+</span></code></pre><h2 id='create-file'>Create File</h2><h3 id='http-request-9'>HTTP Request</h3>
+<p><code>POST /files</code></p>
+<pre class="highlight json tab-json"><code><span class="err">Payload</span><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="s2">"exchangeId"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"url"</span><span class="p">:</span><span class="s2">"myfile.csv"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"kind"</span><span class="p">:</span><span class="s2">"WITHDRAWAL"</span><span class="p">,</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h2 id='update-file'>Update File</h2><h3 id='http-request-10'>HTTP Request</h3>
+<p><code>PATCH /files/1</code></p>
+<pre class="highlight json tab-json"><code><span class="err">Payload</span><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="s2">"FAILED"</span><span class="p">,</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h2 id='delete-file'>Delete File</h2><h3 id='http-request-11'>HTTP Request</h3>
+<p><code>DELETE /files/1</code></p>
+<h1 id='keys'>Keys</h1><h2 id='get-keys'>Get Keys</h2><h3 id='http-request-12'>HTTP Request</h3>
+<p><code>GET /keys</code></p>
+<pre class="highlight json tab-json"><code><span class="err">Response</span><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"exchangeId"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"publicKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"data"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"passphrase"</span><span class="p">:</span><span class="w"> </span><span class="s2">"password123"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"locationType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"exchange"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"location"</span><span class="p">:</span><span class="w"> </span><span class="s2">"binance"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234abc"</span><span class="w">  
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">      
+      </span><span class="s2">"exchangeId"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"publicKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"data"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"passphrase"</span><span class="p">:</span><span class="w"> </span><span class="s2">"password123"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"locationType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"exchange"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"location"</span><span class="p">:</span><span class="w"> </span><span class="s2">"binance"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234abc"</span><span class="w">  
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h2 id='create-key'>Create Key</h2><h3 id='http-request-13'>HTTP Request</h3>
+<p><code>POST /exchanges/1/keys</code></p>
+<pre class="highlight json tab-json"><code><span class="err">Payload</span><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="s2">"publicKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"data"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"privateKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"data"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"passPhrase"</span><span class="p">:</span><span class="w"> </span><span class="s2">"data"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234abc"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h2 id='update-key'>Update Key</h2><h3 id='http-request-14'>HTTP Request</h3>
+<p><code>PUT /keys/1</code></p>
+<pre class="highlight json tab-json"><code><span class="err">Payload</span><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="s2">"privateKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"data"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h2 id='delete-key'>Delete Key</h2><h3 id='http-request-15'>HTTP Request</h3>
+<p><code>DELETE /keys/1</code></p>
+<h1 id='transactions'>Transactions</h1><h2 id='get-transactions'>Get Transactions</h2><h3 id='http-request-16'>HTTP Request</h3>
+<p><code>GET /transactions</code></p>
+<pre class="highlight json tab-json"><code><span class="err">Response</span><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"exchangeId"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="mi">453</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DEPOSIT"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FEE"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"coin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"coinAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">73.41</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"usdPricePerCoin"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"usdFee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"58e19be779874971e72f159a"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"manual"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Apr 3, 2017 1:22:08 AM"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Apr 3, 2017 1:22:08 AM"</span><span class="p">,</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"exchangeId"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="mi">453</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DEPOSIT"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FEE"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"coin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"coinAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">73.41</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"usdPricePerCoin"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"usdFee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"58e19be779874971e72f159a"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"manual"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Apr 3, 2017 1:22:08 AM"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Apr 3, 2017 1:22:08 AM"</span><span class="p">,</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h2 id='create-transaction'>Create Transaction</h2><h3 id='http-request-17'>HTTP Request</h3>
+<p><code>POST /transactions</code></p>
+<pre class="highlight json tab-json"><code><span class="err">Payload</span><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="s2">"exchangeId"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"address"</span><span class="p">:</span><span class="s2">"address"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"type"</span><span class="p">:</span><span class="s2">"TRADE"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"category"</span><span class="p">:</span><span class="s2">"TRADE"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"coin"</span><span class="p">:</span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"coinAmount"</span><span class="p">:</span><span class="s2">"0.5"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h2 id='update-transaction'>Update Transaction</h2><h3 id='http-request-18'>HTTP Request</h3>
+<p><code>PUT /transactions/1</code></p>
+<pre class="highlight json tab-json"><code><span class="err">Payload</span><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GIFT"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h2 id='delete-transaction'>Delete Transaction</h2><h3 id='http-request-19'>HTTP Request</h3>
+<p><code>DELETE /transactions/1</code></p>
+<h1 id='process'>Process</h1><h2 id='get-key'>Get Key</h2><h3 id='http-request-20'>HTTP Request</h3>
+<p><code>GET /exchanges/1/keys</code></p>
+<h1 id='holdings'>Holdings</h1><h2 id='get-key-2'>Get Key</h2><h3 id='http-request-21'>HTTP Request</h3>
+<p><code>GET /exchanges/1/keys</code></p>
+<h1 id='forms'>Forms</h1><h2 id='get-key-3'>Get Key</h2><h3 id='http-request-22'>HTTP Request</h3>
 <p><code>GET /exchanges/1/keys</code></p>
 <h1 id='errors'>Errors</h1>
 <aside class="notice">
