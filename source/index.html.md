@@ -16,6 +16,35 @@ search: true
 
 **Version:** Internal Pre-Alpha
 
+### Conversion Information
+
+This API document aims to standardize the Cointaxes API for external use. The
+following specification is what the API **should** become. Here is a summary of
+the changes:
+
+* Standardizes on "createdAt" and "updatedAt" for all objects
+
+* Adds an "Exchanges" endpoint so third parties can get a user's exchanges list in a single call
+
+* All endpoints follow REST standards when it comes to when to use GET, POST, PUT, and DELETE HTTP methods
+
+* Objects are always identified by the objects "id" attribute and related objects are identified by "<ObjectType>Id"
+
+* All object attributes are always accessed at the top level, no GETs on a nested route (e.g. /transactions/gifts)
+
+* The user object returns a subset of values when the user is not authenticated
+
+* Index collections are returned in an attribute named "data"
+
+* Keys and Files are top level resources, but always require an exchange
+
+* Exchanges are a real object, and not simply recorded as "location" or "locationName"
+
+* Naming conventions for the same objets are consistent (e.g. not using location and exchangeName)
+
+* Scopes are defined by search parameters (e.g. `/transactions?type=TRADE`) over nested paths
+
+
 # Users
 
 ## Get User
@@ -93,7 +122,7 @@ Response
 ## Update User
 
 ### HTTP Request
-`PUT /users/65`
+`PATCH /users/65`
 
 ```json
 Payload
@@ -227,7 +256,195 @@ Response
 }
 ````
 
+## Create File
+
+### HTTP Request
+`POST /files`
+
+```json
+Payload
+{
+  "exchangeId":1,
+  "url":"myfile.csv",
+  "kind":"WITHDRAWAL",
+}
+```
+
+## Update File
+
+### HTTP Request
+
+`PATCH /files/1`
+
+```json
+Payload
+{
+  "status":"FAILED",
+}
+```
+
+## Delete File
+
+### HTTP Request
+`DELETE /files/1`
+
 # Keys
+
+## Get Keys
+
+### HTTP Request
+`GET /keys`
+
+```json
+Response
+{
+  "data": [
+    {
+      "exchangeId":1,
+      "publicKey": "data",
+      "passphrase": "password123",
+      "locationType": "exchange",
+      "location": "binance",
+      "clientId": "1234abc"  
+    },
+    {      
+      "exchangeId":1,
+      "publicKey": "data",
+      "passphrase": "password123",
+      "locationType": "exchange",
+      "location": "binance",
+      "clientId": "1234abc"  
+    }
+  ]
+}
+```
+
+## Create Key
+
+### HTTP Request
+`POST /exchanges/1/keys`
+
+```json
+Payload
+{
+  "publicKey": "data",
+  "privateKey": "data",
+  "passPhrase": "data",
+  "clientId": "1234abc"
+}
+```
+
+## Update Key
+
+### HTTP Request
+`PUT /keys/1`
+
+```json
+Payload
+{
+  "privateKey": "data"
+}
+```
+
+## Delete Key
+
+### HTTP Request
+`DELETE /keys/1`
+
+# Transactions
+
+## Get Transactions
+
+### HTTP Request
+`GET /transactions`
+
+```json
+Response
+{
+  "data": [
+    {
+      "id": 1,
+      "exchangeId":1,
+      "userId": 453,
+      "type": "DEPOSIT",
+      "category": "FEE",
+      "coin": "USD",
+      "coinAmount": 73.41,
+      "usdPricePerCoin": 1,
+      "usdFee": 0,
+      "address": "58e19be779874971e72f159a",
+      "manual": false,
+      "createdAt": "Apr 3, 2017 1:22:08 AM",
+      "updatedAt": "Apr 3, 2017 1:22:08 AM",
+    },
+    {
+      "id": 2,
+      "exchangeId":1,
+      "userId": 453,
+      "type": "DEPOSIT",
+      "category": "FEE",
+      "coin": "USD",
+      "coinAmount": 73.41,
+      "usdPricePerCoin": 1,
+      "usdFee": 0,
+      "address": "58e19be779874971e72f159a",
+      "manual": false,
+      "createdAt": "Apr 3, 2017 1:22:08 AM",
+      "updatedAt": "Apr 3, 2017 1:22:08 AM",
+    },
+  ]
+}
+```
+
+## Create Transaction
+
+### HTTP Request
+`POST /transactions`
+
+```json
+Payload
+{
+  "exchangeId":1,
+  "address":"address",
+  "type":"TRADE",
+  "category":"TRADE",
+  "coin":"BTC",
+  "coinAmount":"0.5"
+}
+```
+
+## Update Transaction
+
+### HTTP Request
+`PUT /transactions/1`
+
+```json
+Payload
+{
+  "type": "GIFT"
+}
+```
+
+## Delete Transaction
+
+### HTTP Request
+`DELETE /transactions/1`
+
+# Process
+
+## Get Key
+
+### HTTP Request
+`GET /exchanges/1/keys`
+
+# Holdings
+
+## Get Key
+
+### HTTP Request
+`GET /exchanges/1/keys`
+
+# Forms
 
 ## Get Key
 
