@@ -430,6 +430,66 @@ Payload
 ### HTTP Request
 `DELETE /transactions/1`
 
+# Payments
+
+## Create Payment
+
+### HTTP Request
+`POST /payments`
+
+```json
+Payload
+{
+  "productYear": 2017,
+  "productType": "TAX_FORM",
+  "paymentSource": "STRIPE",
+  "promoCode": "freestuff"
+}
+
+Response
+{
+  "id": 28,
+  "userId": 158,
+  "paymentSourceId": 2,
+  "productId": 3,
+  "amount": 49.99,
+  "tax": 0,
+  "currency": "USD",
+  "status": "INITIATE"
+}
+```
+
+## Update Payment
+
+### HTTP Request
+`PUT /payments/28`
+
+```json
+Payload (Stripe)
+{
+  "paymentSource": "STRIPE",
+  "payerId": "tok_asdfasdf"
+}
+
+Payload (Paypal)
+{
+  "paymentSource": "PAYPAL",
+  "payerId": "W4FU77CRLUEYK"
+}
+
+Response
+{
+  "id": 28,
+  "userId": 158,
+  "paymentSourceId": 2,
+  "productId": 3,
+  "amount": 49.99,
+  "tax": 0,
+  "currency": "USD",
+  "status": "SUCCESS"
+}
+```
+
 # Process
 
 ## Trigger Process Start
