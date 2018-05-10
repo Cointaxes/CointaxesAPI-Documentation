@@ -360,6 +360,8 @@ the changes:</p>
 <li><p>Exchanges are a real object, and not simply recorded as &quot;location&quot; or &quot;locationName&quot;</p></li>
 <li><p>Naming conventions for the same objets are consistent (e.g. not using location and exchangeName)</p></li>
 <li><p>Scopes are defined by search parameters (e.g. <code>/transactions?type=TRADE</code>) over nested paths</p></li>
+<li><p>Payments methods and paths changed to follow REST spec.</p></li>
+<li><p>Payment is identified by ID rather then an ID from an outside source (e.g. <code>&quot;paymentId&quot;: &quot;PAY-48L623731R2051135LLA2ZVB&quot;</code> for PayPal payment)</p></li>
 </ul>
 <h1 id='users'>Users</h1><h2 id='get-user'>Get User</h2><h3 id='http-request'>HTTP Request</h3>
 <p><code>GET /users/65</code></p>
