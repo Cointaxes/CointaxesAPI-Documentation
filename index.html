@@ -309,6 +309,17 @@
               </ul>
           </li>
           <li>
+            <a href="#payments" class="toc-h1 toc-link" data-title="payments">Payments</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#create-payment" class="toc-h2 toc-link" data-title="create-payment">Create Payment</a>
+                  </li>
+                  <li>
+                    <a href="#update-payment" class="toc-h2 toc-link" data-title="update-payment">Update Payment</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#process" class="toc-h1 toc-link" data-title="process">Process</a>
               <ul class="toc-list-h2">
                   <li>
@@ -622,7 +633,53 @@ the changes:</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h2 id='delete-transaction'>Delete Transaction</h2><h3 id='http-request-19'>HTTP Request</h3>
 <p><code>DELETE /transactions/1</code></p>
-<h1 id='process'>Process</h1><h2 id='trigger-process-start'>Trigger Process Start</h2><h3 id='http-request-20'>HTTP Request</h3>
+<h1 id='payments'>Payments</h1><h2 id='create-payment'>Create Payment</h2><h3 id='http-request-20'>HTTP Request</h3>
+<p><code>POST /payments</code></p>
+<pre class="highlight json tab-json"><code><span class="err">Payload</span><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="s2">"productYear"</span><span class="p">:</span><span class="w"> </span><span class="mi">2017</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"productType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TAX_FORM"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"paymentSource"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STRIPE"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"promoCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"freestuff"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="err">Response</span><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">28</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="mi">158</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"paymentSourceId"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"productId"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">49.99</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INITIATE"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h2 id='update-payment'>Update Payment</h2><h3 id='http-request-21'>HTTP Request</h3>
+<p><code>PUT /payments/28</code></p>
+<pre class="highlight json tab-json"><code><span class="err">Payload</span><span class="w"> </span><span class="err">(Stripe)</span><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="s2">"paymentSource"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STRIPE"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"payerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tok_asdfasdf"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="err">Payload</span><span class="w"> </span><span class="err">(Paypal)</span><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="s2">"paymentSource"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PAYPAL"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"payerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"W4FU77CRLUEYK"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="err">Response</span><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">28</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="mi">158</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"paymentSourceId"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"productId"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">49.99</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"tax"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SUCCESS"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h1 id='process'>Process</h1><h2 id='trigger-process-start'>Trigger Process Start</h2><h3 id='http-request-22'>HTTP Request</h3>
 <p><code>GET /process?userId=&lt;UserId&gt;&amp;taxTreatment=FIFO&amp;outputCurrency=USD</code></p>
 <h1 id='holdings'>Holdings</h1>
 <p>I don&#39;t know what to do about this endpoint. But maybe we don&#39;t want to expose it publicly anyway...?</p>
