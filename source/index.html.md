@@ -44,6 +44,10 @@ the changes:
 
 * Scopes are defined by search parameters (e.g. `/transactions?type=TRADE`) over nested paths
 
+* Payments methods and paths changed to follow REST spec.
+
+* Payment is identified by ID rather then an ID from an outside source (e.g. `"paymentId": "PAY-48L623731R2051135LLA2ZVB"` for PayPal payment)
+
 
 # Users
 
